@@ -48,7 +48,11 @@ function Step() {
         <span>Count: {count}</span>
         <button onClick={handleAddCount}>+</button>
       </div>
-      {/* result div */}
+      {/* result div
+          if today : 'Today is
+          if greater : Count days from today is Date
+          if less : Count days ago was Date
+      */}
       <div>
         <span>
           {count === 0
