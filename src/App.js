@@ -13,6 +13,21 @@ function Step() {
   const date = new Date("june 26 2023");
   date.setDate(date.getDate() + count);
 
+  // handle reset
+  function handleReset() {
+    setStep(1);
+    setCount(0);
+  }
+  // handle slider step
+  function handleStep(event) {
+    console.log(event);
+    setStep(Number(event.target.value));
+  }
+
+  // handle input count
+  function handleCount(event) {
+    setCount(Number(event.target.value));
+  }
   // subtract state value
   function handleSubStep() {
     setStep((s) => step - 1);
@@ -38,14 +53,24 @@ function Step() {
       {/* When user clicks, step number - increase or decrease */}
       {/* step div */}
       <div>
-        <button onClick={handleSubStep}>-</button>
-        <span>Step: {step}</span>
-        <button onClick={handleAddStep}>+</button>
+        {/* slider */}
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={step}
+          onChange={(event) => handleStep(event)}
+        ></input>
+        <span>{step}</span>
       </div>
       {/* count div */}
       <div>
         <button onClick={handleSubCount}>-</button>
-        <span>Count: {count}</span>
+        <input
+          placeholder="Enter count"
+          onChange={(event) => handleCount(event)}
+          value={count}
+        ></input>
         <button onClick={handleAddCount}>+</button>
       </div>
       {/* result div
@@ -63,6 +88,13 @@ function Step() {
         </span>
         <span>{date.toDateString()}</span>
       </div>
+      {/* reset button 
+        display only after changes have been made*/}
+      {step !== 1 || count !== 0 ? (
+        <div>
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      ) : null}
     </div>
   );
 }
